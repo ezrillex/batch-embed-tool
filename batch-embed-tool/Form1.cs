@@ -120,6 +120,7 @@ namespace batch_embed_tool
                 row.Cells[4].Value = embed.Link.WebUrl.Replace("embed", "download");
             }
 
+            button_files_as_names.Enabled = true;
             Cursor = Cursors.Default;
         }
 
@@ -240,6 +241,21 @@ namespace batch_embed_tool
             p("The folder path was copied to the clipboard");
             Clipboard.Clear();
             Clipboard.SetText(Directory.GetCurrentDirectory());
+        }
+
+        private void button_files_as_names_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in work_datagrid.Rows)
+            {
+                string name = row.Cells[0].Value.ToString();
+                int index = name.LastIndexOf('.');
+                if (index != -1)
+                {
+                    name = name.Substring(0,index);
+                }
+                row.Cells[1].Value = name;
+            }
+
         }
     }
 }

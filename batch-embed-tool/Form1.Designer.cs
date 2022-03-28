@@ -41,6 +41,7 @@
             this.connect_button = new System.Windows.Forms.Button();
             this.exportJSON_button = new System.Windows.Forms.Button();
             this.exportCSV_button = new System.Windows.Forms.Button();
+            this.button_files_as_names = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.work_datagrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,10 +101,10 @@
             this.Column3,
             this.Column2,
             this.Column4});
-            this.work_datagrid.Location = new System.Drawing.Point(591, 41);
+            this.work_datagrid.Location = new System.Drawing.Point(591, 70);
             this.work_datagrid.Name = "work_datagrid";
             this.work_datagrid.RowTemplate.Height = 25;
-            this.work_datagrid.Size = new System.Drawing.Size(570, 496);
+            this.work_datagrid.Size = new System.Drawing.Size(570, 467);
             this.work_datagrid.TabIndex = 6;
             // 
             // Column1
@@ -167,11 +168,23 @@
             this.exportCSV_button.UseVisualStyleBackColor = true;
             this.exportCSV_button.Click += new System.EventHandler(this.exportCSV_button_Click);
             // 
+            // button_files_as_names
+            // 
+            this.button_files_as_names.Enabled = false;
+            this.button_files_as_names.Location = new System.Drawing.Point(591, 41);
+            this.button_files_as_names.Name = "button_files_as_names";
+            this.button_files_as_names.Size = new System.Drawing.Size(178, 23);
+            this.button_files_as_names.TabIndex = 10;
+            this.button_files_as_names.Text = "Use filename as export name";
+            this.button_files_as_names.UseVisualStyleBackColor = true;
+            this.button_files_as_names.Click += new System.EventHandler(this.button_files_as_names_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1173, 636);
+            this.Controls.Add(this.button_files_as_names);
             this.Controls.Add(this.exportCSV_button);
             this.Controls.Add(this.exportJSON_button);
             this.Controls.Add(this.connect_button);
@@ -201,5 +214,6 @@
         private DataGridViewTextBoxColumn Column4;
         private Button exportJSON_button;
         private Button exportCSV_button;
+        private Button button_files_as_names;
     }
 }
