@@ -7,6 +7,8 @@ namespace batch_embed_tool
     {
         private OneDriveClient? client = null;
 
+        private int resume = 0;
+
         public MainForm()
         {
             InitializeComponent();
@@ -110,18 +112,40 @@ namespace batch_embed_tool
         private async void convert_button_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            work_datagrid.Rows.Clear();
-            GetCheckedElements(treefiles.Nodes[0]);
-
-            foreach(DataGridViewRow row in work_datagrid.Rows)
+            if(resume == 0)
             {
-                var embed = await client.Drive.Items[row.Cells[2].Value.ToString()].CreateLink("embed").Request().PostAsync();
-                row.Cells[3].Value = embed.Link.WebUrl;
-                row.Cells[4].Value = embed.Link.WebUrl.Replace("embed", "download");
+                work_datagrid.Rows.Clear();
+                GetCheckedElements(treefiles.Nodes[0]);
             }
+        
+           
 
+            
+            for(int i = 0 + resume ; i < work_datagrid.Rows.Count; i++)
+            {
+                var row = work_datagrid.Rows[i];
+                try
+                {
+                    var embed = await client.Drive.Items[row.Cells[2].Value.ToString()].CreateLink("embed").Request().PostAsync();
+                    row.Cells[3].Value = embed.Link.WebUrl;
+                    row.Cells[4].Value = embed.Link.WebUrl.Replace("embed", "download");
+
+                }
+                catch(Microsoft.Graph.ServiceException ex)
+                {
+                    resume = i;
+                    p("Api limit has been reached resume index has been set to: " + resume);
+                    p("try again in:");
+                    p(ex.ResponseHeaders.RetryAfter.Delta.ToString());
+                    Cursor = Cursors.Default;
+                    return;
+                }
+               
+               
+            }
             button_files_as_names.Enabled = true;
             Cursor = Cursors.Default;
+
         }
 
         private void GetCheckedElements(TreeNode node)

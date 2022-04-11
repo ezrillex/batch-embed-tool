@@ -48,7 +48,6 @@
             // textdebug
             // 
             this.textdebug.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textdebug.Enabled = false;
             this.textdebug.Location = new System.Drawing.Point(0, 543);
             this.textdebug.Multiline = true;
             this.textdebug.Name = "textdebug";
